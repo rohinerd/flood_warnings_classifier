@@ -57,6 +57,8 @@ The AUC shows the model ranks weeks with a severe warning above quiet weeks abou
 
 **Threshold check.** A threshold was chosen on the training years to maximise F1, giving 0.978. On the test years that threshold flagged almost no weeks correctly, so the test F1 was 0.0. The training set has only 25 positive weeks, so the chosen threshold is unstable and doesn't generalise. The default threshold of 0.5 is reported above. The AUC, which doesn't depend on a threshold, is the more reliable measure for this model.
 
+**Second cut-off.** The 30-day model was refitted at cut-offs of 2017, 2018, 2019, and 2020. The AUC stayed between 0.71 and 0.73 at every split. The splits overlap heavily, and the training set changes little across 2017 to 2019, so this shows stability rather than four independent tests.
+
 ## Known weaknesses
 
 ![ROC curve for the weekly warning-count model](results/roc_weekly_count.png)
