@@ -64,6 +64,12 @@ ROC curves for the weekly-count model at cut-offs of 2017 and 2019. Both sit bel
 - **Track experiments in MLflow.** Log each feature test, its cut-off year, AUC, and F1 in one place, as the RAG project does.
 - **Add a regression gate.** A GitHub Actions workflow that re-runs the evaluation on each push and fails if the AUC drops below a set threshold.
 
+## Regression gate
+
+A GitHub Actions workflow (`.github/workflows/regression-gate.yml`) runs on every push. It downloads the pinned dataset release `data-v1`, rebuilds the weekly-count feature, and checks the test-year AUC against a threshold of 0.30. The build fails if the AUC falls below that value.
+
+The dataset is pinned to a release so that any change in the AUC comes from the model, not from the data changing. The current AUC is 0.334.
+
 ## How to run
 
 The project runs in Google Colab, with no local installation or cloud account needed.
