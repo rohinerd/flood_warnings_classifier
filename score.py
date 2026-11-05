@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
 
-DATA_URL = "https://environment.data.gov.uk/dataset/88bed270-d465-11e4-8669-f0def148f590#:~:text=ZIP-,Download,-Published%20by"
+DATA_URL = "https://github.com/rohinerd/flood_warnings_classifier/releases/download/data-v1/Historic_Flood_Warnings.zip"
 DATA_DIR = "data"
 CUTOFF = 2019
 THRESHOLD = float(os.environ.get("AUC_THRESHOLD", "0.30"))
