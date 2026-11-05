@@ -43,6 +43,18 @@ The data itself is valuable, and this exclusion is a deliberate test choice rath
 
 The weekly-count result is also shown in the ROC curve under Known weaknesses. A cut-off comparison in the notebook shows the result holds across split years: 2017 gives AUC 0.34 and 2019 gives AUC 0.33.
 
+### 30-day target
+
+The per-warning target proved hard to predict, so the question was reframed: does a severe warning start in a given area within the next four weeks? Features use only data from earlier weeks, computed on the ten most frequent areas, with the same 2019 cut-off.
+
+| Measure | Test years (2020 to 2026) |
+|---|---|
+| Baseline severe F1 (always predict no) | 0.0 |
+| Model AUC | 0.729 |
+| Model severe F1 (threshold 0.5) | 0.043 |
+
+The AUC shows the model ranks weeks with a severe warning above quiet weeks about 73% of the time, well above chance. The F1 is modest because the default threshold of 0.5 flags few weeks correctly. The threshold has not been tuned on the test years. The test set holds only 31 positive weeks, so the AUC should be read with a margin of error.
+
 ## Known weaknesses
 
 ![ROC curve for the weekly warning-count model](results/roc_weekly_count.png)
