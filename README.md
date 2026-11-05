@@ -78,10 +78,8 @@ ROC curves for the weekly-count model at cut-offs of 2017 and 2019. Both sit bel
 
 ## Next steps
 
-- **Test a second cut-off for the 30-day model.** Confirm the AUC holds at another split year, as done for the per-warning target.
-- **Use earlier updates as features.** Count recent updates in each area, computed only from data before each date.
-- **Extend the area set.** Move beyond the ten most frequent areas, so the result covers more of England.
-- **Try a ranking-based threshold.** Flag the top few percent of weeks by score, decided on training data first, as a separate experiment.
+- **Use earlier updates as features.** Count recent updates in each area, computed only from data before each date, to test whether the update rows carry signal once they're used as history rather than as the label.
+- **Try a ranking-based threshold.** Flag the top few percent of weeks by score, decided on training data first, as a separate experiment, since the default threshold flags too few weeks correctly.
 
 ## Regression gate
 
