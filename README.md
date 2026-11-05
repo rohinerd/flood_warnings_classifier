@@ -71,10 +71,10 @@ ROC curves for the weekly-count model at cut-offs of 2017 and 2019. Both sit bel
 
 ## Next steps
 
-- **Reframe the target as a 30-day forecast.** Predict whether a severe warning occurs in an area within the next 30 days, using only information available before each date. This is a more realistic question for a flood-risk team.
-- **Use earlier updates as features.** Count recent updates in each area and whether an earlier warning was upgraded, computed only from data before each date.
-- **Track experiments in MLflow.** Log each feature test, its cut-off year, AUC, and F1 in one place, as the RAG project does.
-- **Add a regression gate.** A GitHub Actions workflow that re-runs the evaluation on each push and fails if the AUC drops below a set threshold.
+- **Choose the threshold on the training years.** Set the classification threshold using training data only, then apply it once to the test years, so the test set isn't tuned on.
+- **Test a second cut-off for the 30-day model.** Confirm the AUC holds at another split year, as done for the per-warning target.
+- **Use earlier updates as features.** Count recent updates in each area, computed only from data before each date.
+- **Extend the area set.** Move beyond the ten most frequent areas, so the result covers more of England.
 
 ## Regression gate
 
