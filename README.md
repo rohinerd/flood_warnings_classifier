@@ -59,6 +59,8 @@ The AUC shows the model ranks weeks with a severe warning above quiet weeks abou
 
 **Second cut-off.** The 30-day model was refitted at cut-offs of 2017, 2018, 2019, and 2020. The AUC stayed between 0.71 and 0.73 at every split. The splits overlap heavily, and the training set changes little across 2017 to 2019, so this shows stability rather than four independent tests.
 
+**Extended area set.** Refitting on all 54 areas with at least 50 warnings gave an AUC of 0.823, with 75 positive test weeks against 31 in the ten-area grid. The F1 at the default threshold remains low (0.031), so the ranking is stronger than the classification. The higher AUC may partly reflect differences between areas, not only better prediction in the busiest ones.
+
 ## Known weaknesses
 
 ![ROC curve for the weekly warning-count model](results/roc_weekly_count.png)
