@@ -45,7 +45,7 @@ The weekly-count result is also shown in the ROC curve under Known weaknesses. A
 
 ### 30-day target
 
-The per-warning target proved hard to predict, so the question was reframed: does a severe warning start in a given area within the next four weeks? Features use only data from earlier weeks, computed on the ten most frequent areas, with the same 2019 cut-off.
+The per-warning target proved hard to predict, so the question was reframed: does a severe warning start in a given area within the next four weeks? Features use only data from earlier weeks, computed on the ten most frequent areas, with the same 2019 cut-off. The results below use the weekly area grid, not the per-warning rows.
 
 | Measure | Test years (2020 to 2026) |
 |---|---|
@@ -54,6 +54,8 @@ The per-warning target proved hard to predict, so the question was reframed: doe
 | Model severe F1 (threshold 0.5) | 0.043 |
 
 The AUC shows the model ranks weeks with a severe warning above quiet weeks about 73% of the time, well above chance. The F1 is modest because the default threshold of 0.5 flags few weeks correctly. The threshold has not been tuned on the test years. The test set holds only 31 positive weeks, so the AUC should be read with a margin of error.
+
+**Threshold check.** A threshold was chosen on the training years to maximise F1, giving 0.978. On the test years that threshold flagged almost no weeks correctly, so the test F1 was 0.0. The training set has only 25 positive weeks, so the chosen threshold is unstable and doesn't generalise. The default threshold of 0.5 is reported above. The AUC, which doesn't depend on a threshold, is the more reliable measure for this model.
 
 ## Known weaknesses
 
@@ -68,13 +70,14 @@ ROC curves for the weekly-count model at cut-offs of 2017 and 2019. Both sit bel
 - **No feature beats chance so far.** Area and month, area history, and the weekly warning count all scored at or below an AUC of 0.5 on the 2020 to 2026 test years.
 - **Few severe examples in the test set.** 57 severe warnings is enough to show a pattern, but not to support a firm conclusion. A single case can move the scores noticeably.
 - **Missing drivers.** Severity depends mainly on rainfall and river levels, which aren't in this dataset, so predicting severity from warning history alone is a hard problem.
+- **Threshold instability.** With so few positive weeks, a threshold chosen on training data does not transfer to the test years. The AUC is reported instead.
 
 ## Next steps
 
-- **Choose the threshold on the training years.** Set the classification threshold using training data only, then apply it once to the test years, so the test set isn't tuned on.
 - **Test a second cut-off for the 30-day model.** Confirm the AUC holds at another split year, as done for the per-warning target.
 - **Use earlier updates as features.** Count recent updates in each area, computed only from data before each date.
 - **Extend the area set.** Move beyond the ten most frequent areas, so the result covers more of England.
+- **Try a ranking-based threshold.** Flag the top few percent of weeks by score, decided on training data first, as a separate experiment.
 
 ## Regression gate
 
@@ -89,6 +92,6 @@ The project runs in Google Colab, with no local installation or cloud account ne
 1. Open `flood_warnings_classifier.ipynb` in Colab.
 2. Upload `Historic_Flood_Warnings.zip` to the `/content` folder, using the upload icon in the Files panel.
 3. Run the cells in order from section 1. The unzip step extracts the spreadsheet into `flood_data`.
-4. Sections 7 and 10 set the split and compare cut-offs. Section 9 and the sub-sections train the models.
+4. Sections 7 and 10 set the split and compare cut-offs. Section 9 and the sub-sections train the models. Sections 13 to 17 build the 30-day weekly grid, train the 30-day model, and test the threshold.
 
 Colab sessions reset, so re-upload the zip and rerun from section 1 if you return later.
